@@ -23,4 +23,13 @@ To render manually:<br>
 dot -Tpng "PATH_TO_AdminSDHolder_Map.dot" -o "PATH_TO_AdminSDHolder_Map.png"
 ```
 <br>
+You can use the generated CSV file to quickly <b>get all accounts with AdminCount=1 which are NOT direct nor nested members of privileged groups</b>.<br>
+These accounts need to be checked, and normally <b>reset their AdminCount</b> attribute value (since it prevents ACL inheritence/delegations etc.):<br><br>
+
+```
+$AdminCount = Get-ADObject -LDAPFilter "(admincount=1)" -Properties samaccountname | where objectclass -ne "group";
+$AdminSDHolder = Import-Csv .\AdminSDHolder_Members.csv;
+compare $AdminCount.samaccountname $AdminSDHolder.member | where {$_.sideIndicator -eq '<=' -and $_.inputobject -ne 'krbtgt'}
+```
+![Sample results](/screenshots/getadminsdholder3.png)<br><br>
 <b>Comments and improvements are welcome!</b>
