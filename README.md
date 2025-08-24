@@ -8,6 +8,11 @@ The script performs the following:<br>
 - Include AdminCount value and DN (distinguishedname)<br>
 - Generate CSV + DOT graph files (for Visual Map)<br>
 - Auto-render to PNG & open Visual Map (if Graphviz is available)<br><br>
+DOT graph is color-coded for readability:<br>
+* Protected groups = $\color{#FF0000}{red}$ nodes. <br>
+* Nested groups = $\color{#FFA500}{orange}$ nodes. <br>
+* User/computer objects = $\color{#ADD8E6}{lightblue}$ nodes.<br><br>
+* Sample AdminSDHolder Map:<br>
 ![Sample results](/screenshots/AdminSDHolder_Map.png) <br><br>
 Usage:
 ```
