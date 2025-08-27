@@ -24,19 +24,8 @@ Comments to 1nTh15h311 (yossis@protonmail.com)
                     CSV input file with the list of AD groups
                     OU to be scanned
                     Full AD scan
+                All output files are now created in "\files" subfolder and timestemped to keep the execution history
 
-.EXAMPLE
-.\Get-AdminSDHolder.ps1 -CSVFilePath D:\Scripts\Get-AdminSDHolder\ADGgroups.csv
-    Script will generate the report based on the list of ADGroups from csv file
-
-    CSV File format expected:
-        "ADGroup"
-        "LOB8TO15",
-        "LOB24-30",
-        "LOB1TO7",
-        "LOB16TO23",
-        "Administrators",
-        "nested-group-test"
 
 .EXAMPLE
 .\Get-ADGroupsMembers.ps1
@@ -50,6 +39,15 @@ Comments to 1nTh15h311 (yossis@protonmail.com)
 .EXAMPLE
 .\Get-ADGroupsMembers.ps1 -Action CSVFile -CSVFilePath D:\Scripts\Get-AdminSDHolder\ADGgroups.csv
     Script will generate the report based on the list of ADGroups from csv file
+
+        CSV File format expected:
+        "ADGroup"
+        "LOB8TO15",
+        "LOB24-30",
+        "LOB1TO7",
+        "LOB16TO23",
+        "Administrators",
+        "nested-group-test"
 
 .EXAMPLE
 .\Get-ADGroupsMembers.ps1 -Action OU -OU "OU=iam-ps-pam-na,OU=iamlab,DC=iamlab,DC=cyderes,DC=com"
