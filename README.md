@@ -17,6 +17,47 @@ DOT graph is color-coded for readability:<br>
 Usage:
 ```
 .\Get-AdminSDHolder.ps1
+
+Changelog:
+08-27-2025 - Version 1.1 <Emil.Gitman@gmail.com>
+Extended version Get-ADGroupsMembers.ps1
+Script supports the following scan options
+-AD Protected groups - Default
+-CSV input file with the list of AD groups
+-OU to be scanned
+-Full AD scan
+All output files are now created in "\files" subfolder and timestemped to keep the execution history
+
+
+Usage:
+.\Get-ADGroupsMembers.ps1
+    Script will prompt for scan option and default to AD Protected Groups if not selected
+
+Usage:
+.\Get-ADGroupsMembers.ps1 -Action Protected
+    Script will scan the AD Protected Groups (Default)
+    
+
+Usage:
+.\Get-ADGroupsMembers.ps1 -Action CSVFile -CSVFilePath D:\Scripts\Get-AdminSDHolder\ADGgroups.csv
+    Script will generate the report based on the list of ADGroups from csv file
+CSV File format expected:
+
+"ADGroup"
+"LOB8TO15",
+"LOB24-30",
+"LOB1TO7",
+"LOB16TO23",
+"Administrators",
+"nested-group-test"
+
+Usage
+.\Get-ADGroupsMembers.ps1 -Action OU -OU "OU=iam-ps-pam-na,OU=iamlab,DC=iamlab,DC=cyderes,DC=com"
+    Script will scan the specific OU in AD. Script will prompt for OU if not provided
+
+Usage:
+.\Get-ADGroupsMembers.ps1 -Action FullScan
+    Script will perform full AD scan! User will be prompted to confirm that
 ```
 ![Sample results](/screenshots/getadminsdholder2.png) <br><br>
 CSV Output:<br>
