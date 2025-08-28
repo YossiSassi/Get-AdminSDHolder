@@ -19,15 +19,16 @@ Usage:
 .\Get-AdminSDHolder.ps1
 
 Changelog:
+08-24-2025 - Get-AdminSDHolder Version 1.0 <yossis@protonmail.com>
+
 08-27-2025 - Version 1.1 <Emil.Gitman@gmail.com>
-Extended version Get-ADGroupsMembers.ps1
+Added Extended version Get-ADGroupsMembers.ps1 based on Get-AdminSDHolder
 Script supports the following scan options
 -AD Protected groups - Default
 -CSV input file with the list of AD groups
 -OU to be scanned
 -Full AD scan
 All output files are now created in "\files" subfolder and timestemped to keep the execution history
-
 
 Usage:
 .\Get-ADGroupsMembers.ps1
