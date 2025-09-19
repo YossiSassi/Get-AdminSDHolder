@@ -1,8 +1,8 @@
-﻿<#
+<#
 Get-ADGroupsMembers Sourced from Get-AdminSDHolder
 Analyze effective protected groups in the AD Domain (AdminSDHolder), honoring dsHeuristics 16th char. 
 Outputs to Console and CSV file (including AdminCount actual value), as well an optional Visual Map, by creating a DOT file for graphviz (can be rendered into a PNG)
-version: 1.1
+version: 1.2
 Comments to 1nTh15h311 (yossis@protonmail.com)
 
 .SYNOPSIS
@@ -25,6 +25,8 @@ Comments to 1nTh15h311 (yossis@protonmail.com)
                     OU to be scanned
                     Full AD scan
                 All output files are now created in "\files" subfolder and timestemped to keep the execution history
+    09-17-2025 - Version 1.2 <Emil.Gitman@gmail.com>
+                Script is querying the AD for additional user details and adding to the export csv file : GivenName, Surname, Mail
 
 
 .EXAMPLE
@@ -237,6 +239,15 @@ Function Get-MembersRecursive {
     }
 
     foreach ($m in $members) {
+
+        # Query for user email
+        $userdetails = Get-ADUser -Identity $m.SamAccountName -Properties Mail -ErrorAction SilentlyContinue | Select-Object GivenName, Surname, Mail
+        #$userdetails.givenname
+        #$userdetails.surname
+        #$userdetails.mail
+        #pause
+
+
         $isDirect = ($PathSoFar.Count -eq 0);
         $membershipType = if ($isDirect) { "Direct" } else { "Nested" }
 
@@ -262,6 +273,9 @@ Function Get-MembersRecursive {
             $csvRows.Add([pscustomobject]@{
                 Group                = $RootGroupName
                 Member               = $m.SamAccountName
+                GivenName            = $userdetails.givenname
+                Surname              = $userdetails.surname
+                Mail                 = $userdetails.mail
                 ObjectClass          = "group"
                 MembershipType       = $membershipType
                 SourceGroupImmediate = $sourceImmediate
@@ -296,6 +310,9 @@ Function Get-MembersRecursive {
             $csvRows.Add([pscustomobject]@{
                 Group                = $RootGroupName
                 Member               = $m.SamAccountName
+                GivenName            = $userdetails.givenname
+                Surname              = $userdetails.surname
+                Mail                 = $userdetails.mail
                 ObjectClass          = $cls
                 MembershipType       = $membershipType
                 SourceGroupImmediate = $sourceImmediate
